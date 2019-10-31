@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace PracticeSpelunky
 {
@@ -71,11 +72,6 @@ namespace PracticeSpelunky
 
         }
 
-        public virtual void PrintMethod()
-        {
-            Console.WriteLine("This is the Player");
-        }
-
         public int getBombs()
         {
             return bombs;
@@ -91,6 +87,12 @@ namespace PracticeSpelunky
                 bombs = value;
             }
         }
+
+        public virtual void PrintMethod()
+        {
+            Console.WriteLine("This is the Player");
+        }
+
     }
 
     class Items
@@ -102,6 +104,7 @@ namespace PracticeSpelunky
         {
 
         }
+
 
         public Items(int equipAmount)
         {
@@ -136,15 +139,16 @@ namespace PracticeSpelunky
 
     class Enemies
     {
-        private int health;
-        private int damage;
+        private int health = 1;
+        private int damage = 1;
         private string heldItem;
-        private bool canFly;
-        private bool isHostile;
+        private bool canFly = false;
+        private bool isHostile = false;
+        private object[] totalEnemies = new object[10];
         
         public Enemies ()
         {
-
+            
         }
 
         public Enemies(int health)
@@ -226,10 +230,19 @@ namespace PracticeSpelunky
         private bool isShopAvaliable;
         private bool isVaultAvaliable;
         private bool isSecretLevelEntrance;
-
+        private ArrayList listOfReferences = new ArrayList();
         public Levels ()
         {
 
+        }
+
+        public Levels (ArrayList listOfReferences)
+        {
+            listOfReferences.Add(new Player());
+            listOfReferences.Add(new Shopkeeper());
+            listOfReferences.Add(new Items());
+            // This doesn't seem legal but its something you could try later
+            //this.listOfReferences.Add(objects);
         }
 
         public string getEntrance()
@@ -298,6 +311,8 @@ namespace PracticeSpelunky
         }
     }
 
+
+
     /// <summary>
     ///  These are the children
     /// </summary>
@@ -354,12 +369,23 @@ namespace PracticeSpelunky
 
     class Weapons : Items
     {
-        private int damage;
-        private string[] listOfWeapons = {"Rock","Sword","Shotgun"};
+        private int damage = 1;
+        private string[] listOfWeapons = {"Rock","Sword","Gun"};
 
         public Weapons()
         {
 
+        }
+
+        public Weapons (int positionInArray)
+        {
+            string currrentWeapon = listOfWeapons[positionInArray];
+        }
+
+        public Weapons (int positionInArray, int damage)
+        {
+            string currrentWeapon = listOfWeapons[positionInArray];
+            this.damage = damage;
         }
 
         public int getDamage()
@@ -434,7 +460,7 @@ namespace PracticeSpelunky
 
         public override void PrintMethod()
         {
-            Console.WriteLine("This is Mines");
+            Console.WriteLine("This is the Mines");
         }
     }
 
@@ -499,9 +525,14 @@ namespace PracticeSpelunky
             Console.WriteLine("Hello World!");
 
             Player adventurer = new Player();
-            Mines firstLevel = new Mines();
-            Weapons Shotgun = new Weapons();
+            Levels firstLevel = new Mines();
+            Weapons firstWeapon = new Weapons(1);
+            Weapons secondWeapon = new Weapons(2,5);
             Shopkeeper shopkeeper = new Shopkeeper();
+
+            firstLevel.PrintMethod();
+            firstWeapon.PrintMethod();
+            secondWeapon.PrintMethod();
 
         }
     }
