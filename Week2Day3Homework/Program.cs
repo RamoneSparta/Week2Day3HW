@@ -105,7 +105,6 @@ namespace PracticeSpelunky
 
         }
 
-
         public Items(int equipAmount)
         {
             this.equipAmount = equipAmount;
@@ -325,6 +324,16 @@ namespace PracticeSpelunky
 
         }
 
+        public Shopkeeper(bool isThrowPlayer)
+        {
+
+        }
+
+        public Shopkeeper (int health) : base(health)
+        {
+            
+        }
+
         public bool getIsThrowPlayer()
         {
             return isThrowPlayer;
@@ -346,6 +355,11 @@ namespace PracticeSpelunky
         private bool isRunning;
 
         public Cavemen ()
+        {
+
+        }
+
+        public Cavemen(int health) : base(health)
         {
 
         }
@@ -529,10 +543,23 @@ namespace PracticeSpelunky
             Weapons firstWeapon = new Weapons(1);
             Weapons secondWeapon = new Weapons(2,5);
             Shopkeeper shopkeeper = new Shopkeeper();
+            Enemies[] enemies =
+            {
+                new Cavemen(),
+                new Shopkeeper(),
+                new Cavemen(3),
+                new Shopkeeper(5),
+            
+            };
 
             firstLevel.PrintMethod();
             firstWeapon.PrintMethod();
             secondWeapon.PrintMethod();
+
+            // 
+            //Shopkeeper shopkeeper1 = new Shopkeeper(2);
+            //shopkeeper1.getHealth();
+            //shopkeeper1.PrintMethod();
 
         }
     }
